@@ -32,6 +32,11 @@ app.post('/', (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`\nListening on port ${port}\n`);
 });
+
+// Configure server timeouts to avoid proxy idle timeouts
+// Ensure headersTimeout is greater than keepAliveTimeout
+server.keepAliveTimeout = 65000; // 65 seconds
+server.headersTimeout = 66000;   // 66 seconds
